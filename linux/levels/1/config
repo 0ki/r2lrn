@@ -1,0 +1,8 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Conversion"
+R2LRN_TASK="
+Convert to hex: 42
+"
+R2LRN_ANSWER="0x2a"
+R2LRN_HINT="rax2"
+

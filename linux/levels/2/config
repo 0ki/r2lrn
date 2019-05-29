@@ -1,0 +1,8 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Arithmetics"
+R2LRN_TASK="
+How much is 334*213 (in decimal)?
+"
+R2LRN_ANSWER="71142"
+R2LRN_HINT="rax2 =10"
+

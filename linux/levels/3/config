@@ -1,0 +1,9 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Compiled files and functions"
+R2LRN_TASK="
+There is a file named 'bin' in this folder.
+What address is the open() symbol imported at?
+"
+R2LRN_ANSWER="0x00401960"
+R2LRN_HINT="afl~imp.open[0]"
+

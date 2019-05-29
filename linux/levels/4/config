@@ -1,0 +1,9 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Compiled files and functions 2"
+R2LRN_TASK="
+There is a file named 'bin' in this folder.
+How many functions can radare2 identify in the file doing the deepest possible analysis?
+"
+R2LRN_ANSWER="115"
+R2LRN_HINT="aflc"
+
