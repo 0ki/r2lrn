@@ -1,0 +1,36 @@
+Introduction
+============
+
+Description
+-----------
+
+Difficulty Level: Easy
+
+This exercise is about learning how to read assembly code and moving around with r2
+
+You have to seek to the begining of the function that prints the usage help message
+
+Author
+------
+* pancake
+
+Input
+-----
+
+* bins/ls
+
+Hints
+-----
+
+* Use the 's' command to seek to a different place
+* Append the '?' char to any command to get more help
+
+Verify
+------
+
+	?v $$
+
+Expect
+------
+
+	0x1000043f2

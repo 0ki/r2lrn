@@ -1,0 +1,37 @@
+Introduction
+============
+
+Description
+-----------
+
+Difficulty Level: Medium
+
+This is an example exercise to learn how to use radare2.
+
+You have to make the program return 0 by modifying the assembly code in the entrypoint.
+
+Author
+------
+* pancake
+
+Input
+-----
+
+* bins/ls
+
+Hints
+-----
+
+* Checkout the 'w?' command to see all the write subcommands
+* In x86-64 the return value is set in the `rax` register
+* You can use ESIL to emulate the program
+
+Verify
+------
+
+	?v $$
+
+Expect
+------
+
+	0x1000
