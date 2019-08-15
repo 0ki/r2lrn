@@ -1,0 +1,11 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Writing files"
+R2LRN_TASK="
+There is a text file named 'target' in this folder.
+Replace all whitespace in it with 0x00.
+"
+R2LRN_ANSWER=""
+R2LRN_HINT="wx"
+
+R2LRN_POSTEXEC="md5sum target"
+R2LRN_POSTRESULT="f6985476a37095fe991e5f7668fd34c0\s.*"

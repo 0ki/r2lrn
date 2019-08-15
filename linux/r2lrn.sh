@@ -40,13 +40,18 @@ function setlevel {
 	cp -- * _workdir/ 2> /dev/null || true
 	cd _workdir
 	rm config
-	unset -v R2LRN_NAME R2LRN_TASK R2LRN_ANSWER R2LRN_HINT
+	unset -v R2LRN_NAME R2LRN_TASK R2LRN_ANSWER R2LRN_HINT R2LRN_POSTEXEC R2LRN_POSTRESULT
 	. ../config
 	echo
 	echo "Level $level $R2LRN_NAME"
 	task="$R2LRN_TASK"
 	answer="$R2LRN_ANSWER"
+	[ -z "$answer" ] && answer="$(cat /dev/urandom | tr -dc A-Z0-9 | head -c80)"
 	hint="$R2LRN_HINT"
+	postexec="$R2LRN_POSTEXEC"
+	postverify="$R2LRN_POSTRESULT"
+	[ -z "$postverify" ] && postverify="$(cat /dev/urandom | tr -dc A-Z0-9 | head -c80)"
+
 	echo "$task"
 }
 
@@ -62,12 +67,13 @@ while true; do
 	read a
 	command="$(echo $a | cut -d " " -f 1)"
 	params="$(echo $a | grep " " | cut -d " " -f 2)"
+	proclines=0
 	
 	case "$command" in
 		exit) echo "OK, bye." && exit 0 ;;
 		
-		r2) ;;
-		radare2) ;;
+		r2) proclines=1 ;;
+		radare2) proclines=1 ;;
 		ra*2) ;;
 		
 		ghidra) echo You win. Bye. && exit 69 ;;
@@ -84,6 +90,13 @@ while true; do
 	set +e
 	cat _console | grep -E "^$answer$" > /dev/null
 	[ $? -eq 0 ] && echo " *** Congrats. That is correct. *** " && echo && setlevel $(($level + 1)) && set -e && continue
+
+	if [ ! -z "$postexec" ]; then
+		$postexec | grep -E "^$postverify$" > /dev/null
+		[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $(($level + 1)) && set -e && continue
+	fi
+
 	set -e
+
 	
 done
