@@ -9,7 +9,8 @@ function cleanup {
 }
 
 function stay {
-	[ -z "$(jobs -p)" ] && echo && exit 0 || trap buttons SIGINT
+	echo
+	[ -z "$(jobs -p)" ] || trap stay SIGINT
 }
 
 trap cleanup EXIT
@@ -21,6 +22,10 @@ APPDIR="$(pwd)"
 LEVELDIR="$APPDIR/levels"
 
 cd "$OLDDIR"
+
+export HISTFILE="$APPDIR/.history"
+export HISTSIZE=10
+history -r
 
 function show_hint {
 	[ -z "$hint" ] && echo "Sorry. Level developer was a meany and didn't include a hint." && return 0
@@ -64,7 +69,6 @@ function setlevel {
 
 echo "Welcome to r2lrn. Type exit, to exit."
 echo
-echo
 echo "Starting limited *bash-like* shell. Type \"help\" to see possible r2lrn commands."
 echo "Only radare tools (r2, rabin2, etc...) can be used."
 echo
@@ -76,9 +80,11 @@ level=1
 setlevel $1
 
 while true; do
-	echo
-	echo -n r2lrn $\ 
-	read a
+	rm -- .console* 2> /dev/null || true
+	prompt="$USER@$HOSTNAME ./levels/$level $ "
+	read -e -p "$prompt" a
+	history -s "$a"
+	history -w
 	command="$(echo $a | cut -d " " -f 1)"
 	params="$(echo $a | grep " " | cut -d " " -f 2-)"
 	proclines=0
@@ -86,11 +92,13 @@ while true; do
 	case "$command" in
 		exit) echo "OK, bye." && exit 0 ;;
 		
+		"") continue ;;
+		
 		r2) proclines=1 ;;
 		radare2) proclines=1 ;;
 		ra*2) ;;
 		
-		ghidra) echo You win. Bye. && exit 69 ;;
+		ghidra) echo You win the game. Bye. && exit 69 ;;
 		
 		level) setlevel $params ; continue ;;
 		hint) show_hint ; continue ;;
