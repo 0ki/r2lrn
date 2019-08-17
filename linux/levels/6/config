@@ -1,0 +1,9 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Debugging"
+R2LRN_TASK="
+There is a file named 'bin' in this folder.
+Make program break on calling fscanf() when debugging.
+"
+R2LRN_HINT="db"
+
+R2LRN_COMMAND="(db sym.imp.fscanf)|(db 0x00401790)"
