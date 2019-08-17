@@ -1,15 +1,19 @@
 #!/bin/bash
 # (C) Kirils Solovjovs, 2019
-# written in whatever licence r2 is written in
+# GNU GPLv3, preserve authorship
 
 set -e
 
 function cleanup {
-  [ -f .console ] && rm -- .console*
-  [ -z $(jobs -p) ] || kill $(jobs -p)
+	[ -z "$(jobs -p)" ] || kill $(jobs -p)
+}
+
+function stay {
+	[ -z "$(jobs -p)" ] && echo && exit 0 || trap buttons SIGINT
 }
 
 trap cleanup EXIT
+trap stay SIGINT
 
 OLDDIR="$(pwd)"
 cd "$(dirname "$0")"
@@ -59,10 +63,14 @@ function setlevel {
 
 
 echo "Welcome to r2lrn. Type exit, to exit."
-echo "Starting a limited shell. Only radare commands allowed."
+echo
+echo
+echo "Starting limited *bash-like* shell. Type \"help\" to see possible r2lrn commands."
+echo "Only radare tools (r2, rabin2, etc...) can be used."
 echo
 echo "If you decide to use interactive r2 for any of the challenges,"
-echo "exit it as soon as you get the answer (or enter it manually)."
+echo "exit it as soon as you get the answer (or submit answer manually)."
+
 level=1
 
 setlevel $1
@@ -87,13 +95,19 @@ while true; do
 		level) setlevel $params ; continue ;;
 		hint) show_hint ; continue ;;
 		answer) take_answer $params ; continue ;;
-		help) echo "Available commands: answer, level, hint, exit, help" && continue ;;
+		ls) ls -l ; continue ;;
+		help) echo "Available commands: answer, level, hint, ls, exit, help" && continue ;;
 		*) echo "Command not found. Did you mean to type ghidra $params?" && continue ;;
 	esac
 	
 	[ -z "$(which $a)" ] && echo "Command not found." && continue
-	$a | tee .console
+	
+	set +e
+		$a | tee .console
+	set -e
+	
 	if [ $proclines -eq 1 ] ; then
+		set +e
 		cat .console | tr  -d '\200-\377' \
 			| sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]//g;s/ +/ /gm" \
 			| tr -d '\000-\011' | tr '\r' '\n' |sed '/^$/d' > .console.clear
@@ -101,12 +115,12 @@ while true; do
 		cat .console.clear | sed -E '/^\[0x[0-9a-f]+\]>.*/! s/.*//;s/\[0x[0-9a-f]+\]> //' \
 			| uniq | awk '!/^$/ {line=$0} /^$/ {print line} END {print line}' \
 			| uniq | grep -v "^$" | grep -v "^ex" | grep -v "^q" > .console.cmds
+		set -e
 	else
 		cp .console .console.clear
 		cp .console .console.answers
 		touch .console.cmds
 	fi
-	
 	
 	set +e
 
