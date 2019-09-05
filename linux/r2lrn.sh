@@ -49,7 +49,7 @@ function setlevel {
 	cp -- * .workdir/ 2> /dev/null || true
 	cd .workdir
 	rm config
-	unset -v R2LRN_NAME R2LRN_TASK R2LRN_ANSWER R2LRN_HINT R2LRN_POSTEXEC R2LRN_POSTRESULT R2LRN_COMMAND
+	unset -v R2LRN_NAME R2LRN_TASK R2LRN_ANSWER R2LRN_HINT R2LRN_POSTEXEC R2LRN_POSTRESULT R2LRN_COMMAND R2LRN_NEXTLEVEL
 	. ../config
 	echo
 	echo "Level $level $R2LRN_NAME"
@@ -62,7 +62,9 @@ function setlevel {
 	[ -z "$postverify" ] && postverify="$(cat /dev/urandom | tr -dc A-Z0-9 | head -c80)"
 	commandanswer="$R2LRN_COMMAND"
 	[ -z "$commandanswer" ] && commandanswer="$(cat /dev/urandom | tr -dc A-Z0-9 | head -c80)"
-	
+	nextlevel="$R2LRN_NEXTLEVEL"
+	[ -z "$nextlevel" ] && nextlevel=$(($level + 1))
+
 	echo "$task"
 }
 
@@ -105,6 +107,7 @@ while true; do
 		answer) take_answer $params ; continue ;;
 		ls) ls -l ; continue ;;
 		help) echo "Available commands: answer, level, hint, ls, exit, help" && continue ;;
+		debug) set | grep ^R2LRN_ ; continue ;;
 		*) echo "Command not found. Did you mean to type ghidra $params?" && continue ;;
 	esac
 	
@@ -134,14 +137,14 @@ while true; do
 
 		if [ ! -z "$postexec" ]; then
 			$postexec | grep -E "^\s*$postverify\s*$" > /dev/null
-			[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $(($level + 1))
+			[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $nextlevel
 		else
 			tail -1 .console.answers | grep -E "^\s*$answer\s*$" > /dev/null
 			if [ $? -eq 0 ]; then
-				echo " *** Congrats. That is correct. *** " && echo && setlevel $(($level + 1))
+				echo " *** Congrats. That is correct. *** " && echo && setlevel $nextlevel
 			else
 				tail -1 .console.cmds | grep -E "^\s*$commandanswer\s*$" > /dev/null
-				[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $(($level + 1))
+				[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $nextlevel
 			fi
 		fi
 	
