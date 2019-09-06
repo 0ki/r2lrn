@@ -1,6 +1,8 @@
 R2LRN_VERSION=1
-R2LRN_NAME="Conversion"
+R2LRN_NAME="radare2 tools intro: Conversion"
 R2LRN_TASK="
+Please use radare2 toolset for this and the following tasks!
+
 Convert to hex: 42
 "
 R2LRN_ANSWER="(0x)?2a"

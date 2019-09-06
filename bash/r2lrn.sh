@@ -25,7 +25,7 @@ cd "$OLDDIR"
 
 export HISTFILE="$APPDIR/.history"
 export HISTSIZE=10
-history -r
+history -r || true
 
 function show_hint {
 	[ -z "$hint" ] && echo "Sorry. Level developer was a meany and didn't include a hint." && return 0
@@ -53,7 +53,7 @@ function setlevel {
 	unset -v R2LRN_NAME R2LRN_TASK R2LRN_ANSWER R2LRN_HINT R2LRN_POSTEXEC R2LRN_POSTRESULT R2LRN_COMMAND R2LRN_NEXTLEVEL
 	. ../config
 	echo
-	echo "Level $level $R2LRN_NAME"
+	echo " -[ Level $level $R2LRN_NAME ]- "
 	task="$R2LRN_TASK"
 	answer="$R2LRN_ANSWER"
 	[ -z "$answer" ] && answer="$(cat /dev/urandom | tr -dc A-Z0-9 | head -c80)"
@@ -70,13 +70,16 @@ function setlevel {
 }
 
 
-echo "Welcome to r2lrn. Type exit, to exit."
 echo
-echo "Starting limited BASH-LIKE shell. Type \"help\" to see possible r2lrn commands."
+echo "Welcome to r2lrn. Type 'exit', to exit."
+echo
+echo "Starting limited BASH-LIKE shell. Type 'help' to see possible r2lrn commands."
 echo "Only radare tools (r2, rabin2, etc...) and internal r2lrn commands can be used."
 echo
 echo "If you decide to use interactive r2 for any of the challenges,"
 echo "exit it as soon as you get the answer (or submit answer manually)."
+echo "================================================================================"
+
 
 level=1
 
