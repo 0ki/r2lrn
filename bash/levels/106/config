@@ -6,4 +6,4 @@ Make program break on calling fscanf() when debugging.
 "
 R2LRN_HINT="db"
 
-R2LRN_COMMAND="(db sym.imp.fscanf)|(db 0x00401790)"
+R2LRN_COMMAND="(db sym.imp.fscanf)|(db 0x0?0?401790)"
