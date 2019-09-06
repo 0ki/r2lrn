@@ -72,8 +72,8 @@ function setlevel {
 
 echo "Welcome to r2lrn. Type exit, to exit."
 echo
-echo "Starting limited *bash-like* shell. Type \"help\" to see possible r2lrn commands."
-echo "Only radare tools (r2, rabin2, etc...) can be used."
+echo "Starting limited BASH-LIKE shell. Type \"help\" to see possible r2lrn commands."
+echo "Only radare tools (r2, rabin2, etc...) and internal r2lrn commands can be used."
 echo
 echo "If you decide to use interactive r2 for any of the challenges,"
 echo "exit it as soon as you get the answer (or submit answer manually)."
