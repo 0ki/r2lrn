@@ -4,6 +4,6 @@ R2LRN_TASK="
 There is a file named 'bin' in this folder.
 How many functions can radare2 identify in the file doing the deepest possible analysis?
 "
-R2LRN_ANSWER="114"
+R2LRN_ANSWER="113"
 R2LRN_HINT="aflc"
 

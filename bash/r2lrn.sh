@@ -43,7 +43,7 @@ function take_answer {
 
 function setlevel {
 	[ -z "$1" ] || level="$1"
-	[ ! -r $LEVELDIR/$level/config ] && echo "Needed level does not exist. Seems that you're an r2ninja now. Going to level 1." && level=1
+	[ ! -r "$LEVELDIR/$level/config" ] && echo "Needed level does not exist. Seems that you're an r2ninja now. Going to level 1." && level=1
 	cd $LEVELDIR/$level/
 	rm -r .workdir 2> /dev/null || true
 	mkdir .workdir
@@ -104,6 +104,7 @@ while true; do
 		ghidra) echo You win the game. Bye. && exit 69 ;;
 		
 		level) setlevel $params ; continue ;;
+		cd) echo "Use 'level' to change level" && continue ;;
 		hint) show_hint ; continue ;;
 		answer) take_answer $params ; continue ;;
 		ls) ls -l ; continue ;;
@@ -140,7 +141,7 @@ while true; do
 			$postexec | grep -E "^\s*$postverify\s*$" > /dev/null
 			[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $nextlevel
 		else
-			tail -1 .console.answers | grep -E "^\s*$answer\s*$" > /dev/null
+			cat .console.answers | grep -v "^\^D$" | tail -1 | grep -E "^\s*$answer\s*$" > /dev/null
 			if [ $? -eq 0 ]; then
 				echo " *** Congrats. That is correct. *** " && echo && setlevel $nextlevel
 			else

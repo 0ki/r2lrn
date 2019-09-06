@@ -1,5 +1,5 @@
 R2LRN_VERSION=1
-R2LRN_NAME="Help me!"
+R2LRN_NAME="r2lrn intro: Help me!"
 R2LRN_TASK="
 This is an easy one. Learn to use r2lrn first.
 Type 'hint' to get hint.
