@@ -124,7 +124,7 @@ while true; do
 		cat .console | tr  -d '\200-\377' \
 			| sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,3})*)?[mGK]//g;s/ +/ /gm" \
 			| tr -d '\000-\011' | tr '\r' '\n' |sed '/^$/d' > .console.clear
-		cat .console.clear | grep -vE "^\[0x[0-9a-f]+\]> " > .console.answers
+		cat .console.clear | grep -vE "^\[0x[0-9a-f]+\]> " | grep -v "^\^D$" > .console.answers
 		cat .console.clear | sed -E '/^\[0x[0-9a-f]+\]>.*/! s/.*//;s/\[0x[0-9a-f]+\]> //' \
 			| uniq | awk '!/^$/ {line=$0} /^$/ {print line} END {print line}' \
 			| uniq | grep -v "^$" | grep -v "^ex" | grep -v "^q" > .console.cmds
@@ -141,7 +141,7 @@ while true; do
 			$postexec | grep -E "^\s*$postverify\s*$" > /dev/null
 			[ $? -eq 0 ] && echo " *** Congrats. You solved it correctly. *** " && echo && setlevel $nextlevel
 		else
-			cat .console.answers | grep -v "^\^D$" | tail -1 | grep -E "^\s*$answer\s*$" > /dev/null
+			tail -1 .console.answers | grep -E "^\s*$answer\s*$" > /dev/null
 			if [ $? -eq 0 ]; then
 				echo " *** Congrats. That is correct. *** " && echo && setlevel $nextlevel
 			else
