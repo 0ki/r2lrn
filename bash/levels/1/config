@@ -1,0 +1,11 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Help me!"
+R2LRN_TASK="
+This is an easy one. Learn to use r2lrn first.
+Type 'hint' to get hint.
+If you need/want to enter answer manually type \"answer YOUR_ANSWER\"
+
+What's the meaning of life, universe, and everything?
+"
+R2LRN_ANSWER="42"
+R2LRN_HINT="answer 42"
