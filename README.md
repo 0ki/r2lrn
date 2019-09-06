@@ -3,7 +3,7 @@
 ### Tools to learn using radare2!
 These tools require radare2 to work. Duh.
 
-by [Kirils Solovjovs](https://twitter.com/KirilsSolovjovs/) written in bash; allows you to learn all the commands in radare2 toolkit.
+Folder "bash" contains what you need. Written by [Kirils Solovjovs](https://twitter.com/KirilsSolovjovs/) written in bash; allows you to learn all the commands in radare2 toolkit.
 
 
 
