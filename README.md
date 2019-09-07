@@ -7,4 +7,4 @@ Folder "bash" contains what you need. Written by [Kirils Solovjovs](https://twit
 
 
 
-Also golf-plugin by pancake (see _other). This plugin is aimed for solving larger challenges using r2 interactive interface.
+Also golf-plugin by pancake (see _other). This plugin is best for solving larger challenges and onlu supports r2 interactive interface.
