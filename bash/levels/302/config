@@ -1,10 +1,9 @@
 R2LRN_VERSION=1
-R2LRN_NAME="Compiled files and functions 2"
+R2LRN_NAME="Basic info"
 R2LRN_TASK="
 There is a file named 'bin' in this folder.
-How many functions can radare2 identify in the file doing the deepest possible analysis?
+What machine is the file compiled for?
 "
-R2LRN_ANSWER="113"
-R2LRN_HINT="aflc"
+R2LRN_ANSWER="(machine\s+)?(AMD )?x86-64( architecture)?"
+R2LRN_HINT="i~machine"
 
-R2LRN_NEXTLEVEL=351

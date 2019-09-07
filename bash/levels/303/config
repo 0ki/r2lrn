@@ -1,0 +1,10 @@
+R2LRN_VERSION=1
+R2LRN_NAME="Strings"
+R2LRN_TASK="
+There is a file named 'bin' in this folder.
+What usage string does the printf() call use?
+"
+R2LRN_ANSWER=".*Usage:\s%s\s\[OPTION\]\.\.\.\s\[\sFILE\s\|\sARG1\sARG2\s\].*"
+R2LRN_HINT="iz~Usage"
+
+R2LRN_NEXTLEVEL=321

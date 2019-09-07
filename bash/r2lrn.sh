@@ -36,7 +36,7 @@ function show_hint {
 
 function take_answer {
 	set +e
-	echo "$*" | grep -E "^$answer$" > /dev/null
+	echo $* | grep -E "^$answer$" > /dev/null
 	[ $? -eq 0 ] && echo " *** Congrats. That is correct. *** " && echo && setlevel $nextlevel || echo " %%% nope. nope. nope. %%% "
 	set -e
 }
