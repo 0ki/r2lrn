@@ -98,8 +98,8 @@ static bool golf_test(RCore *core) {
 		} else {
 			RListIter *iter;
 			char *s = r_core_cmd_str (core, g->verify);
-			s = r_str_trim (s);
-			char *e = r_str_trim (g->expect);
+			r_str_trim (s);
+			char *e = r_str_trim_dup (g->expect);
 			// eprintf ("COMPARE (%s)(%s)\n", s, e);
 			if (!strcmp (s, e)) {
 				r_core_cmd0 (core, "?E Congratulations you solved the exercise!");
@@ -198,7 +198,8 @@ static void _golf_help (RCore *core) {
 
 static bool isRootCommand(RCore *core, const char *input) {
 	int maxDepth = r_config_get_i (core->config, "cmd.depth");
-	return (maxDepth - 1 == core->cmd_depth);
+	int curDepth = core->cons->context->cmd_depth;
+	return (maxDepth - 1 == curDepth);
 }
 
 static int r_cmd_golf_call(void *user, const char *input) {
