@@ -113,7 +113,7 @@ while true; do
 		ls) ls -l ; continue ;;
 		help) echo "Available commands: answer, level, hint, ls, exit, help" && continue ;;
 		debug) set | grep ^R2LRN_ ; continue ;;
-		*) echo "Command not found. Did you mean to type ghidra $params?" && continue ;;
+		*) echo "Command not found. Did you mean to type ghidra $params? ;)" && continue ;;
 	esac
 	
 	[ -z "$(which $a)" ] && echo "Command not found." && continue
