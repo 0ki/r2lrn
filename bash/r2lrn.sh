@@ -17,7 +17,8 @@ trap cleanup EXIT
 trap stay SIGINT
 
 OLDDIR="$(pwd)"
-cd "$(dirname "$0")"
+REALFILE="$(readlink "$0")"
+cd "$(dirname "$REALFILE")"
 APPDIR="$(pwd)"
 LEVELDIR="$APPDIR/levels"
 
