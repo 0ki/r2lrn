@@ -4,7 +4,7 @@ LDFLAGS=$(shell pkg-config --libs r_core)
 R2_USER_PLUGINS=$(shell r2 -H R2_USER_PLUGINS)
 
 all:
-	$(CC) -g $(CFLAGS) $(LDFLAGS) -shared -o r2golf.$(LIBEXT) plugin.c
+	$(CC) -g $(CFLAGS) $(LDFLAGS) -fPIC -shared -o r2golf.$(LIBEXT) plugin.c
 
 install:
 	mkdir -p "$(R2_USER_PLUGINS)"
